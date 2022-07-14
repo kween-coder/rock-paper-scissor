@@ -3,28 +3,40 @@ import random
 
 #function to determine the winner
 def rps(p1_turn,p2_turn):
-	if ((p2_turn == 'P' and p1_turn == 'R') or (p2_turn == 'R' and p1_turn == 'P')):
+	a=p1_turn.upper()
+	b=p2_turn.upper()
+
+	if ((b == 'P' and a == 'R') or (b == 'R' and a == 'P')):
 		print("Paper wins")
 		result = "P"
 
-	elif ((p2_turn == 'R' and p1_turn == 'S') or (p2_turn == 'S' and p1_turn == 'R')):
+	elif ((b == 'R' and a == 'S') or (b == 'S' and a == 'R')):
 		print("Rock  wins")
 		result = "R"
 
-	elif ((p2_turn == 'P' and p1_turn == 'S') or (p2_turn == 'S' and p1_turn == 'P')):
+	elif ((b == 'P' and a == 'S') or (b == 'S' and a == 'P')):
 		print("Scissor wins")
 		result = "S"
 
 	else:
 		result = 'Draw'
 
-
+#checking which player wins
 	if result == 'Draw':
 		print("It's a draw")
-	elif result == p2_turn:
+	elif result == b:
 		print("Computer wins.....!!")
 	else:
 		print("You won...!!")
+
+#asking for a rematch	
+	ans = input("Do you want to play again: Y/N\n").upper()
+	if ans == 'Y':
+		choice = int(input("Select your mode: \n")) #selecting the mode to play
+		game(choice)
+
+	else:
+		print("Thank you for playing")
 
 
 #Basic Intro 
@@ -34,37 +46,50 @@ print("Winning Rules of the Rock paper scissor game as follows: \n"+"Rock vs pap
 								+ "Rock vs scissor->Rock wins \n"
                                 +"paper vs scissor->scissor wins \n")
 print("There are two types of modes - ,\n"+"1. Single player mode ,\n"+"2. Two Player mode")
-choice = int(input("Select your mode: \n")) #selecting the mode to play
+
+#selecting the mode to play
+choice = int(input("Select your mode: \n")) 
 def game(choice):
-	p1_turn = input("Enter a choice (rock, paper, scissors): ")
-	if ((p1_turn != 'S') or (p1_turn != 'P') or (p1_turn != 'R')):
-		print("Enter valid choice.")
-		break
 
+	action = ['R','P','S']
+	if choice == 1:#Single player mode
 
-	if choice == 1:
-		action = ['R','P','S']
+		p1_turn = input("Enter a choice (rock, paper, scissors): ").upper()
+		#handling invalid input
+		if p1_turn not in action:
+			print("Invalid input")
+			exit()
+
 		p2_turn=random.choice(action)
+		p2_turn.upper()
+
 		print("Computer's choice = ",p2_turn)
 
 		rps(p1_turn,p2_turn)
 
-	else:
-		p2_turn = input("Enter a choice (rock, paper, scissors): ")
+	elif choice == 2:#multiplayer mode
+		p1_turn = input("Enter a choice (rock, paper, scissors): ").upper()
+		
+		#handling invalid input
+		if p1_turn not in action:
+			print("Invalid input")
+			exit()
+			
+		p2_turn = input("Enter a choice (rock, paper, scissors): ").upper()
+		if p2_turn not in action:
+			print("Invalid input")
+			exit()
+	
 		rps(p1_turn,p2_turn)
+
+	else:#handling invalid input
+		print("Invalid input")
+		exit()
 
 
 
 game(choice)
 
-ans = input("Do you want to play again: Y/N\n")
- 
-if ans == 'Y':
-	choice = int(input("Select your mode: \n")) #selecting the mode to play
-	game(choice)
-
-else:
-	print("Thank you for playing")
 
 
 
